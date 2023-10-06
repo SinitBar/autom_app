@@ -1,4 +1,4 @@
-import 'package:autom_app/screens/register_screen.dart';
+import 'package:autom_app/screens/register_screen/register_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
