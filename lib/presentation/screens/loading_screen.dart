@@ -1,7 +1,7 @@
-import 'package:autom_app/screens/register_screen/register_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import '../../constants.dart';
+import 'login_or_register_screen/login_or_register_screen.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -17,7 +17,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 5)).then((value) {
-      Navigator.of(context).popAndPushNamed(RegisterScreen.id);
+      Navigator.of(context).popAndPushNamed(LoginOrRegisterScreen.id);
     });
   }
 

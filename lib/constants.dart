@@ -16,10 +16,20 @@ const kTextStyle = TextStyle(
   fontFamily: 'Roboto',
   fontSize: 18,
   fontWeight: FontWeight.w400,
-  color: Colors.black,
+  color: kActiveColor,
+  decoration: TextDecoration.none,
+);
+
+const kGreyTextStyle = TextStyle(
+  fontFamily: 'Roboto',
+  fontSize: 12,
+  fontWeight: FontWeight.w400,
+  color: kInactiveColor,
   decoration: TextDecoration.none,
 );
 
 const kLogoText = 'AutomApp';
 
 const double kRowWidth = 210;
+
+const kTextFieldPadding = EdgeInsets.symmetric(vertical: 30.0);

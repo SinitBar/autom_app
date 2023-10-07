@@ -1,5 +1,5 @@
-import 'package:autom_app/screens/loading_screen.dart';
-import 'package:autom_app/screens/register_screen/register_screen.dart';
+import 'package:autom_app/presentation/screens/loading_screen.dart';
+import 'package:autom_app/presentation/screens/login_or_register_screen/login_or_register_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
@@ -21,7 +21,7 @@ class AutomAppRegister extends StatelessWidget {
       ),
       routes: {
         LoadingScreen.id: (context) => const LoadingScreen(),
-        RegisterScreen.id: (context) => const RegisterScreen(),
+        LoginOrRegisterScreen.id: (context) => const LoginOrRegisterScreen(),
       },
       initialRoute: LoadingScreen.id,
     );

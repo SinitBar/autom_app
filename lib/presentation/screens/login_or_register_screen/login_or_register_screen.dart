@@ -1,15 +1,15 @@
 import 'package:autom_app/constants.dart';
-import 'package:autom_app/screens/register_screen/register_new_account_tab.dart';
+import 'package:autom_app/presentation/screens/login_or_register_screen/register_new_account_tab.dart';
 import 'package:flutter/material.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class LoginOrRegisterScreen extends StatefulWidget {
+  const LoginOrRegisterScreen({super.key});
   static String id = '/register_screen';
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<LoginOrRegisterScreen> createState() => _LoginOrRegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
