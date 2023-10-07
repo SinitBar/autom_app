@@ -1,4 +1,4 @@
-package com.example.autom_app
+package com.sinbar.autom_app
 
 import io.flutter.embedding.android.FlutterActivity
 

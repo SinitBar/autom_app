@@ -1,4 +1,4 @@
-import '../domain/Repository.dart';
+import '../domain/repository.dart';
 
 class RepositoryImpl extends Repository {}
 // will register the new user with his phone number
