@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "260525385053",
+    "project_id": "autom-register",
+    "storage_bucket": "autom-register.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260525385053:android:b44c4e966c2f57914e34b4",
+        "android_client_info": {
+          "package_name": "com.sinbar.autom_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWOJP2_cITU08hvR2iV1Wly7ST2FPr7kU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
