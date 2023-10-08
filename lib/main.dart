@@ -13,7 +13,12 @@ void setup() async {}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          apiKey: 'AIzaSyDWOJP2_cITU08hvR2iV1Wly7ST2FPr7kU',
+          appId: '1:260525385053:android:b44c4e966c2f57914e34b4',
+          messagingSenderId: '260525385053',
+          projectId: 'autom-register'));
   getIt.registerSingleton<RepositoryImpl>(RepositoryImpl());
   runApp(const AutomAppRegister());
 }
