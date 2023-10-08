@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../../constants.dart';
+import '../../../data/RepositoryImpl.dart';
+import '../../../main.dart';
 import '../../widgets/designed_checkbox.dart';
 import '../../widgets/designed_text_button.dart';
 import '../../widgets/designed_text_field.dart';
@@ -28,7 +30,7 @@ class _RegisterNewAccountTabState extends State<RegisterNewAccountTab> {
       type: MaskAutoCompletionType.eager,
     );
     smsCodeFormatter = MaskTextInputFormatter(
-      mask: '####',
+      mask: '######',
       type: MaskAutoCompletionType.eager,
     );
     canGoNext = false;
@@ -54,11 +56,19 @@ class _RegisterNewAccountTabState extends State<RegisterNewAccountTab> {
           ),
           DesignedTextButton(
             text: 'Выслать SMS-код',
-            onPressCallback: () {},
+            onPressCallback: () {
+              print('masked phone is: ${phoneFormatter.getMaskedText()}');
+              getIt<RepositoryImpl>()
+                  .registerUserWithPhoneNumber(phoneFormatter.getMaskedText());
+            },
           ),
           DesignedTextButton(
             text: 'Выслать повторно',
-            onPressCallback: () {},
+            onPressCallback: () {
+              print('masked phone is: ${phoneFormatter.getMaskedText()}');
+              getIt<RepositoryImpl>()
+                  .registerUserWithPhoneNumber(phoneFormatter.getMaskedText());
+            },
             backgroundColor: Colors.white,
             textColor: kRedColor,
           ),
@@ -110,11 +120,61 @@ class _RegisterNewAccountTabState extends State<RegisterNewAccountTab> {
           //if (canGoNext)
           DesignedTextButton(
             text: 'Далее',
-            onPressCallback: () {
+            onPressCallback: () async {
               if (canGoNext) {
+                final repo = getIt<RepositoryImpl>();
+                final String verificationId = repo.verificationId ?? '';
+                final String smsCode = smsCodeFormatter.getMaskedText();
+                final bool isUserCodeVerified =
+                    await repo.isUserCodeVerified(verificationId, smsCode);
+                if (isUserCodeVerified) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('Registered'),
+                      content: Text('Success!'),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text('Ok'))
+                      ],
+                    ),
+                  );
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('Not Registered'),
+                      content: Text(
+                          'The code is wrong. Try again using \"Выслать повторно\" button.'),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text('Ok'))
+                      ],
+                    ),
+                  );
+                }
                 // go to the next page
               } else {
-                // maybe show error dialog
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text('Error'),
+                    content: Text('You should check the checkbox to register'),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('Ok'))
+                    ],
+                  ),
+                );
               }
             },
           ),
