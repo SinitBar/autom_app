@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:autom_app/presentation/screens/loading_screen.dart';
 import 'package:autom_app/presentation/screens/login_or_register_screen/login_or_register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,10 +15,13 @@ void setup() async {}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final appId = Platform.isAndroid
+      ? '1:260525385053:android:b44c4e966c2f57914e34b4'
+      : '1:260525385053:ios:12260ed178255c124e34b4';
   await Firebase.initializeApp(
-      options: const FirebaseOptions(
+      options: FirebaseOptions(
           apiKey: 'AIzaSyDWOJP2_cITU08hvR2iV1Wly7ST2FPr7kU',
-          appId: '1:260525385053:android:b44c4e966c2f57914e34b4',
+          appId: appId,
           messagingSenderId: '260525385053',
           projectId: 'autom-register'));
   getIt.registerSingleton<RepositoryImpl>(RepositoryImpl());

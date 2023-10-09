@@ -65,9 +65,11 @@ class _RegisterNewAccountTabState extends State<RegisterNewAccountTab> {
           DesignedTextButton(
             text: 'Выслать повторно',
             onPressCallback: () {
-              print('masked phone is: ${phoneFormatter.getMaskedText()}');
-              getIt<RepositoryImpl>()
-                  .registerUserWithPhoneNumber(phoneFormatter.getMaskedText());
+              if (getIt<RepositoryImpl>().verificationId != null) {
+                print('masked phone is: ${phoneFormatter.getMaskedText()}');
+                getIt<RepositoryImpl>().registerUserWithPhoneNumber(
+                    phoneFormatter.getMaskedText());
+              }
             },
             backgroundColor: Colors.white,
             textColor: kRedColor,
@@ -76,48 +78,51 @@ class _RegisterNewAccountTabState extends State<RegisterNewAccountTab> {
             labelText: 'Код из SMS',
             formatter: smsCodeFormatter,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              DesignedCheckbox(
-                checkedChangedCallback: (bool value) {
-                  setState(() {
-                    canGoNext = value;
-                  });
-                },
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      const Text(
-                        'Ознакомлен с',
-                        style: kGreyTextStyle,
-                      ),
-                      LinkButton(
-                        text: 'Договором оферты',
-                        onTapCallback: () {},
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text(
-                        'и согласен на',
-                        style: kGreyTextStyle,
-                      ),
-                      LinkButton(
-                        text: 'Рассылку',
-                        onTapCallback: () {},
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, bottom: 32),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DesignedCheckbox(
+                  checkedChangedCallback: (bool value) {
+                    setState(() {
+                      canGoNext = value;
+                    });
+                  },
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Text(
+                          'Ознакомлен с',
+                          style: kGreyTextStyle,
+                        ),
+                        LinkButton(
+                          text: 'Договором оферты',
+                          onTapCallback: () {},
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Text(
+                          'и согласен на',
+                          style: kGreyTextStyle,
+                        ),
+                        LinkButton(
+                          text: 'Рассылку',
+                          onTapCallback: () {},
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-          //if (canGoNext)
           DesignedTextButton(
             text: 'Далее',
             onPressCallback: () async {
@@ -131,14 +136,15 @@ class _RegisterNewAccountTabState extends State<RegisterNewAccountTab> {
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: Text('Registered'),
-                      content: Text('Success!'),
+                      title: Text('Регистрация завершена'),
+                      content:
+                          Text('Поздравляем! Вы успешно прошли регистрацию.'),
                       actions: [
                         TextButton(
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text('Ok'))
+                            child: Text('Ок'))
                       ],
                     ),
                   );
@@ -146,9 +152,9 @@ class _RegisterNewAccountTabState extends State<RegisterNewAccountTab> {
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: Text('Not Registered'),
+                      title: Text('Регистрация не пройдена'),
                       content: Text(
-                          'The code is wrong. Try again using \"Выслать повторно\" button.'),
+                          'Введенный код неверен. Попробуйте снова, используя кнопку \"Выслать повторно\".'),
                       actions: [
                         TextButton(
                             onPressed: () {
@@ -164,14 +170,15 @@ class _RegisterNewAccountTabState extends State<RegisterNewAccountTab> {
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: Text('Error'),
-                    content: Text('You should check the checkbox to register'),
+                    title: Text('В регистрации отказано'),
+                    content: Text(
+                        'Сначала поставте галочку о том, что вы согласны с договором оферты и согласны на рассылку.'),
                     actions: [
                       TextButton(
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: Text('Ok'))
+                          child: Text('Ок'))
                     ],
                   ),
                 );

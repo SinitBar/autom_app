@@ -25,7 +25,7 @@ class _DesignedCheckboxState extends State<DesignedCheckbox> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: const EdgeInsets.only(left: 8),
       child: Checkbox(
         checkColor: Colors.white,
         activeColor: kRedColor,
